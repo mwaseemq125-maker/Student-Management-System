@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Username</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container" style="max-width: 400px; margin: 50px auto;">
+    <h2>✏️ Change Admin Username</h2>
+    
+    {% if error %}
+        <p style="color: red; font-weight: bold;">{{ error }}</p>
+    {% endif %}
+
+    <form action="/change-username" method="post">
+        <div style="margin-bottom: 15px;">
+            <label>Current Username:</label><br>
+            <input type="text" value="{{ username }}" disabled style="width: 100%; padding: 8px; background-color: #e9ecef;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>New Username:</label><br>
+            <input type="text" name="new_username" required style="width: 100%; padding: 8px;">
+        </div>
+
+        <button type="submit" style="background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; width: 100%; font-weight: bold; border-radius: 4px;">
+            Update Username
+        </button>
+    </form>
+    
+    <br>
+    <a href="/" style="text-decoration: none; color: #007bff;">← Back to Dashboard</a>
+</div>
+</body>
+</html>

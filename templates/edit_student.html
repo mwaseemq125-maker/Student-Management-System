@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student - Student Management System</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <div class="max-w-lg w-full bg-white rounded-xl shadow-md p-8 my-8">
+        
+        <!-- Header -->
+        <div class="mb-6 text-center">
+            <h1 class="text-2xl font-bold text-gray-800 flex items-center justify-center gap-2">
+                ✏️ Edit Student Details
+            </h1>
+            <p class="text-gray-500 text-sm mt-1">Update profile information for student #{{ student.id }}</p>
+        </div>
+
+        <!-- Backend Error Alert Display -->
+        {% if error %}
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded shadow-sm text-sm font-semibold flex items-center gap-2">
+            <span>⚠️</span>
+            <span>{{ error }}</span>
+        </div>
+        {% endif %}
+
+        <!-- Student Form -->
+        <form action="/update/{{ student.id }}" method="post" enctype="multipart/form-data" class="space-y-4">
+
+            <!-- Name Field -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Student Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ student.name }}"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+                >
+            </div>
+
+            <!-- Age & Gender Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Age</label>
+                    <input
+                        type="number"
+                        name="age"
+                        min="15"
+                        max="60"
+                        value="{{ student.age }}"
+                        required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+                    >
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Gender</label>
+                    <select name="gender" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm bg-white">
+                        <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
+                        <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Course Field -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Course</label>
+                <input
+                    type="text"
+                    name="course"
+                    value="{{ student.course }}"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+                >
+            </div>
+
+            <!-- Email Field -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Email Address</label>
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ student.email }}"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+                >
+            </div>
+
+            <!-- Photo Section: Preview & Upload -->
+            <div class="border-t border-gray-200 pt-4 mt-2">
+                {% if student.photo %}
+                <div class="mb-3">
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-2">Current Photo</label>
+                    <div class="flex items-center gap-3 bg-gray-50 p-2 rounded-lg border border-gray-200 w-fit">
+                        <img src="/{{ student.photo }}" alt="Student Photo" class="w-16 h-16 object-cover rounded-md shadow-sm border border-gray-300">
+                        <span class="text-xs text-gray-500 italic">Saved Profile Picture</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Change Photo (Optional, Max 2MB)</label>
+                    <input
+                        type="file"
+                        name="photo"
+                        accept="image/png, image/jpeg, image/webp"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer shadow-sm"
+                    >
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3 pt-4">
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2.5 rounded-lg shadow transition">
+                    Update Student
+                </button>
+
+                <a href="/" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2.5 rounded-lg shadow text-center transition">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
